@@ -1,0 +1,260 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+<style>
+
+* {
+  outline: none;
+}
+body {
+  background: #111;
+  font: 33px Helvetica, Arial, sans-serif;
+  letter-spacing: -3px;
+  margin: 8px;
+  margin-left: 0px;
+  overflow: hidden;
+}
+html {
+  overflow: hidden;
+}
+#topics {
+  position: absolute;
+  left: 0;
+  top: 120px;
+  width: 200px;
+}
+h1 {
+bottom:198px;
+color:#FFFFFF;
+font-size:36px;
+letter-spacing:-2px;
+margin:0px 0px 0px 14px;
+position:absolute;
+text-decoration:none;
+width:200px;
+}
+h2 {
+  position: relative;
+  z-index: 1;
+  font-size: 63px;
+  line-height: 59px;
+  overflow: hidden;
+  font-weight: bold;
+  margin: 0;
+  padding-left: 14px;
+  cursor: pointer;
+  width: 200px;
+}
+h2.selected {
+  color: #fff;
+}
+h2 span {
+  padding-left: 2px;
+  padding-right: 6px;
+}
+#credits {
+  position: absolute;
+  left: 14px;
+  bottom: 11px;
+  width: 150px;
+  font-size: 14px;
+  line-height: 15px;
+  letter-spacing: -1px;
+  text-transform: lowercase;
+  color: #fff;
+  z-index: 1;
+}
+#items {
+  position: absolute;
+  
+  top: 780px;
+  left: 0px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  margin-bottom:20px;
+}
+#items li {
+  color: #5c5c5c;
+  font-size: 18px;
+  line-height: 18px;
+  letter-spacing: 0px;
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+  padding-left: 200px;
+  padding-right: 20px;
+  overflow: hidden;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  white-space: -o-pre-wrap;
+  white-space: -moz-pre-wrap;
+}
+#items li div.tweet-wrapper {
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+#items li span.large {
+  font-size: 36px;
+  line-height: 32px;
+  letter-spacing: -2px;
+}
+#items li em {
+  font-style: normal;
+  font-size: 56px;
+  line-height: 56px;
+  letter-spacing: -3px;
+  font-weight: bold;
+  text-transform: lowercase;
+}
+
+.love { color: #a839b2 }
+.love.selected span { background-color: #000033 }
+#items li.love em { color: #a839b2 }
+
+.hate { color: #ff0071 }
+.hate.selected span { background-color: #ff0071 }
+#items li.hate em { color: #ff0071 }
+
+.think { color: #acd030 }
+.think.selected span { background-color: #acd030 }
+#items li.think em { color: #acd030 }
+
+.believe { color: #58aa00 }
+.believe.selected span { background-color: #58aa00 }
+#items li.believe em { color: #58aa00 }
+
+
+.feel { color: #00aa78 }
+.feel.selected span { background-color: #00aa78 }
+#items li.feel em { color: #00aa78 }
+
+.wish { color: #0074ae }
+.wish.selected span { background-color: #0074ae }
+#items li.wish em { color: #0074ae }
+
+#newb { 
+	position:absolute; 
+	background-color:#abc; 
+	left:50px;
+	width:90px; 
+	height:90px;
+	margin:5px; 
+}
+#extblock {
+position:relative;
+}
+</style>
+
+
+
+</head>
+
+<body>
+
+<h1 id="logo" style="visibility:hidden"><a href="http://twitter.com/twistori">twistori</a></h1>  
+<p id="credits" style="visibility:hidden"> 
+    based on <a class="love" href="http://twitter.com/">twitter</a>.
+    inspired by <a class="hate" href="http://www.wefeelfine.org/">wefeelfine</a>.
+    hand-crafted by <a class="think" href="http://twitter.com/amyhoy">amy hoy</a> and <a class="believe" href="http://twitter.com/thomasfuchs">thomas fuchs</a> of <a class="feel" href="http://slash7.com/company">slash7</a>.
+    get the <a class="wish" href="twistori_screensaver.dmg">mac screensaver</a>.
+    <br/><br/> 
+    web dev? get our <a class="feel" href="http://javascriptrocks.com/performance/">javascript performance book</a>.
+    <br/><br/> 
+    get your <a class="believe" href="http://twistoridesktop.com/">own custom twistori for your mac</a>.
+  </p> 
+  
+  <div id="topics"> 
+    <h2 class="love" title="i love"><span>love</span></h2> 
+    <h2 class="hate" title="i hate"><span>hate</span></h2> 
+    <h2 class="think" title="i think"><span>think</span></h2> 
+    <h2 class="believe" title="i believe"><span>believe</span></h2> 
+    <h2 class="feel" title="i feel"><span>feel</span></h2> 
+    <h2 class="wish" title="i wish"><span>wish</span></h2> 
+  </div> 
+	<script type="text/javascript">
+	var query="think";
+	var getjson;
+	var getjson1;
+	//var getjson1;
+	var class1="love";
+	var string1="love";
+	//function loadit(){$("#items").append('<li class="love" style="height:auto"><div class="tweet-wrapper">"#Hello World"<br><em>I love </em><span class="large"></span></div></li><br />');}
+	$(document).ready(function() {
+  		//var sendjson;
+		setTimeout("animateleftbar()",1000);
+		setTimeout("loadit(query)",2000);
+		
+		
+	$('.hate').click(function(){query="hate";
+	class1="hate"
+	string1="I hate ";
+	loadit(query);
+	});
+	$('.think').click(function(){query="think";
+	class1="think";string1="I think ";
+	loadit(query);});
+	$('.believe').click(function(){query="believe";
+	class1="believe";string1="I believe ";
+	loadit(query);});
+	$('.feel').click(function(){query="feel";
+	class1="feel";string1="I feel ";loadit(query);});
+	$('.wish').click(function(){query="wish";
+	class1="wish";string1="I wish ";loadit(query);});
+	
+		
+		
+		});
+	function loadit(pquery){
+	var url='http://search.twitter.com/search.json?callback=?&q=';
+		$.getJSON(url+pquery,function(json){getjson=json;showtweet(getjson);});
+			
+	}
+	
+	function aFunction(msg){alert(msg);}
+	//$.addtweet2();
+	
+	function animateleftbar(){
+		$("h2").animate({fontSize:"43px"},{queue:false,duration:1000}).animate({lineHeight:"40px"},1000);
+		setTimeout("makevisible()",1000);
+	}
+	function makevisible(){
+		$("#logo").css("visibility","visible");
+		$("#credits").css("visibility","visible");
+		//loadit();
+		//addtweet(query);
+		//alert(sendjson);
+		//var url='http://search.twitter.com/search.json?callback=?&q=love';
+		//$.getJSON(url,function(json){getjson=json;showtweet(getjson);});
+			
+	}
+
+
+
+	
+	$('.love').click(function(){query="love";class1="love";
+	string1="I love ";
+//	addtweet(query);
+	loadit(query);
+//	alert(query);
+	});
+	function showtweet(getjson){
+		$.each(getjson.results,function(i,tweet){
+		  		$("#items").animate({"top": "-=150px"}, 1500,function(){$("#items").append('<li class="'+class1+'" style="height:auto"><div class="tweet-wrapper">"#Hello World"<br><em>'+string1+' </em><span class="large"></span></div></li><br />');});
+				});
+	
+	}
+	</script>>
+  <div id="items"></ul> 
+
+
+</body>
+
+</body>
+</html>
